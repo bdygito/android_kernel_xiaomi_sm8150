@@ -26,6 +26,10 @@
 #include "sde_core_irq.h"
 #include "dsi_panel.h"
 
+#ifdef CONFIG_DRM_MSM_KCAL_CTRL
+#include "sde_hw_kcal_ctrl.h"
+#endif
+
 struct sde_cp_node {
 	u32 property_id;
 	u32 prop_flags;
