@@ -1029,6 +1029,12 @@ exit:
 
 }
 
+#ifdef CONFIG_DRM_MSM_KCAL_CTRL
+struct drm_crtc *g_pcc_crtc;
+struct drm_property *g_pcc_property;
+uint64_t g_pcc_val;
+#endif
+
 int sde_cp_crtc_set_property(struct drm_crtc *crtc,
 				struct drm_property *property,
 				uint64_t val)
@@ -1062,6 +1068,16 @@ int sde_cp_crtc_set_property(struct drm_crtc *crtc,
 		goto exit;
 	}
 
+#ifdef CONFIG_DRM_MSM_KCAL_CTRL
+	if (prop_node->feature == SDE_CP_CRTC_DSPP_PCC) {
+		pr_info("%s pcc kad kcal\n",__func__);
+		g_pcc_crtc = crtc;
+		g_pcc_property = property;
+		g_pcc_val = val;
+	}
+#endif
+
+	
 	/**
 	 * sde_crtc is virtual ensure that hardware has been attached to the
 	 * crtc. Check LM and dspp counts based on whether feature is a
